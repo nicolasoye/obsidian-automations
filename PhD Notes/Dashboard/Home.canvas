@@ -1,0 +1,17 @@
+{
+	"nodes":[
+		{"id":"d4e5f60718293a4b","type":"group","x":0,"y":1580,"width":1450,"height":520,"color":"6","label":"Work and navigation"},
+		{"id":"c3d4e5f60718293a","type":"group","x":0,"y":840,"width":1040,"height":680,"color":"5"},
+		{"id":"db3d348c308d4d6f","type":"group","x":1060,"y":0,"width":390,"height":1520,"color":"2","label":"Planning horizon"},
+		{"id":"a1b2c3d4e5f60718","type":"group","x":0,"y":0,"width":620,"height":800,"color":"5","label":"This week"},
+		{"id":"b2c3d4e5f6071829","type":"group","x":650,"y":0,"width":390,"height":800,"color":"4","label":"Today"},
+		{"id":"e5f60718293a4b5c","type":"file","file":"PhD Notes/Dashboard/Cards/Current Week Focus.md","x":20,"y":40,"width":580,"height":300},
+		{"id":"f60718293a4b5c6d","type":"file","file":"PhD Notes/Dashboard/Cards/Overdue.md","x":20,"y":380,"width":580,"height":395},
+		{"id":"0718293a4b5c6d7e","type":"file","file":"PhD Notes/Dashboard/Cards/Today.md","x":670,"y":40,"width":350,"height":735},
+		{"id":"293a4b5c6d7e8f90","type":"file","file":"PhD Notes/Dashboard/Cards/Calendar Week.md","x":20,"y":880,"width":1000,"height":610},
+		{"id":"18293a4b5c6d7e8f","type":"file","file":"PhD Notes/Dashboard/Cards/Next 7 Days.md","x":1080,"y":40,"width":350,"height":1450},
+		{"id":"4b5c6d7e8f901234","type":"file","file":"PhD Notes/Dashboard/Cards/Navigation.md","x":740,"y":1640,"width":690,"height":430},
+		{"id":"e46b7520db1efd36","x":20,"y":1640,"width":680,"height":430,"type":"file","file":"PhD Notes/Dashboard/Cards/Projects.md"}
+	],
+	"edges":[]
+}

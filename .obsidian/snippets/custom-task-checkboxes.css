@@ -1,0 +1,60 @@
+/* =========================================================
+   - [o] = visually unchecked
+   ========================================================= */
+
+input.task-list-item-checkbox[data-task="o"]:checked,
+li[data-task="o"] > input.task-list-item-checkbox:checked,
+li[data-task="o"] > p > input.task-list-item-checkbox:checked {
+    background-color: transparent !important;
+    background-image: none !important;
+
+    border-color: var(--checkbox-border-color) !important;
+
+    --checkbox-marker-color: transparent !important;
+
+    box-shadow: none !important;
+}
+
+/* Remove icon/checkmark from [o] */
+input.task-list-item-checkbox[data-task="o"]:checked::after,
+li[data-task="o"] > input.task-list-item-checkbox:checked::after,
+li[data-task="o"] > p > input.task-list-item-checkbox:checked::after {
+    content: "" !important;
+
+    background: none !important;
+    background-color: transparent !important;
+
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+
+    display: none !important;
+}
+
+/* Don't style [o] as completed */
+li.task-list-item.is-checked[data-task="o"],
+li.task-list-item.is-checked[data-task="o"] > * {
+    text-decoration: none !important;
+    color: var(--text-normal) !important;
+}
+
+
+/* =========================================================
+   - [c] = closed / completed → strikethrough
+   ========================================================= */
+
+/* Reading view */
+li.task-list-item[data-task="c"],
+li.task-list-item[data-task="c"] > p,
+
+/* Live Preview */
+.HyperMD-task-line[data-task="c"] {
+    text-decoration: line-through !important;
+}
+
+/* Ensure nested formatting inherits the strike-through */
+li.task-list-item[data-task="c"] span,
+li.task-list-item[data-task="c"] a,
+li.task-list-item[data-task="c"] strong,
+li.task-list-item[data-task="c"] em {
+    text-decoration: line-through !important;
+}
