@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "inbox": {
+    "pcNote": "Inbox/Inbox PC.md",
+    "phoneFolder": "Inbox/Inbox Phone",
+    "phoneRecursive": false,
+    "taskPrefix": "- [o]"
+  },
+  "logPath": "Inbox/inbox_log.txt",
+  "journalPath": "Inbox/inbox_sorter_state.json",
+  "activeProject": {
+    "type": "project",
+    "status": "active"
+  },
+  "domains": {
+    "work": {
+      "weekly": {
+        "folder": "PhD Notes/Planning/Weekly",
+        "namingScheme": "[Tasks/Tasks_]YY[W]WW",
+        "templatePath": "Templates/Automation Templates/_Weekly Note Template.md",
+        "appendHeading": "New Tasks"
+      },
+      "projects": {
+        "folder": "PhD Notes/Projects",
+        "templatePath": "Templates/TemplaterTemplates/Project.md",
+        "appendHeading": "Next actions"
+      },
+      "thoughts": {
+        "notePath": "PhD Notes/Thoughts.md"
+      }
+    },
+    "personal": {
+      "weekly": {
+        "folder": "Personal Notes/Planning/Weekly",
+        "namingScheme": "[Tasks/Tasks_]YY[W]WW",
+        "templatePath": "Templates/Automation Templates/_Weekly Note Template.md",
+        "appendHeading": "New Tasks"
+      },
+      "projects": {
+        "folder": "Personal Notes/Projects",
+        "templatePath": "Templates/TemplaterTemplates/Project.md",
+        "appendHeading": "Next actions"
+      },
+      "thoughts": {
+        "notePath": "Personal Notes/Thoughts.md"
+      }
+    }
+  }
+}
