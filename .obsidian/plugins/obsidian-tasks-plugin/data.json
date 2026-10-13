@@ -74,17 +74,17 @@
     ]
   },
   "isShownInEditModal": {
-    "priority": true,
+    "priority": false,
     "recurrence": false,
     "due": true,
     "scheduled": true,
     "start": true,
-    "before_this": true,
-    "after_this": true,
+    "before_this": false,
+    "after_this": false,
     "status": true,
-    "created": true,
-    "done": true,
-    "cancelled": true
+    "created": false,
+    "done": false,
+    "cancelled": false
   },
   "features": {
     "INTERNAL_TESTING_ENABLED_BY_DEFAULT": true
