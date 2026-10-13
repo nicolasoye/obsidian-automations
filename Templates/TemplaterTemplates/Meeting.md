@@ -57,9 +57,6 @@ date: <% dateOnly %>  # Click this in Properties to use Obsidian's calendar pick
 time: <% timeOnly %>
 ---
 
-# Meeting with <% attendees.join(", ") %>
-Date: <% dateOnly %><%* if (timeOnly) { tR += `  Time: ${timeOnly}` } %>
-
 ## Agenda
 - 
 

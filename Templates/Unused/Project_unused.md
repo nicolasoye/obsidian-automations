@@ -2,10 +2,10 @@
 type: project
 status: active
 review:
-created: 2026-10-12
+created: <% tp.date.now("YYYY-MM-DD") %>
 ---
 
-# _Templater Startup
+# <% tp.file.title %>
 
 > [!summary] Outcome
 > What must be true for this project to be considered complete?
