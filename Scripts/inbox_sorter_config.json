@@ -16,7 +16,7 @@
     "work": {
       "weekly": {
         "folder": "PhD Notes/Planning/Weekly",
-        "namingScheme": "[Tasks/Tasks_]YY[W]WW",
+        "namingScheme": "[Tasks/Tasks_]GG[W]WW",
         "templatePath": "Templates/Automation Templates/_Weekly Note Template.md",
         "appendHeading": "New Tasks"
       },
@@ -32,7 +32,7 @@
     "personal": {
       "weekly": {
         "folder": "Personal Notes/Planning/Weekly",
-        "namingScheme": "[Tasks/Tasks_]YY[W]WW",
+        "namingScheme": "[Tasks/Tasks_]GG[W]WW",
         "templatePath": "Templates/Automation Templates/_Weekly Note Template.md",
         "appendHeading": "New Tasks"
       },

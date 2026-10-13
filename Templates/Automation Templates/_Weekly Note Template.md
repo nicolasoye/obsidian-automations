@@ -1,8 +1,4 @@
 <%*
-const fileName = `PhD Notes/Planning/Weekly/${tp.date.now("GG[W]WW")}`;
-console.log(fileName);
-await tp.file.move(fileName);
-console.log('test');
 const weekTitle = window.moment().format("GG[W]WW");
 const monday = window.moment(weekTitle, "GG[W]WW").startOf("isoWeek");
 const tuesday = monday.clone().add(1, "day");

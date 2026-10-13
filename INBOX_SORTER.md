@@ -62,6 +62,8 @@ New projects are created from their configured template and receive the configur
 
 Each item offers **Work**, **Personal**, **Delete**, **Skip / Later**, and **Edit before routing**. Editing returns to that menu. Task editing changes the text after `- [o]`, retaining the task prefix. Thought editing changes the text after its `-` bullet, retaining that prefix. The edit prompt accepts the body or the complete prefixed line without doubling its prefix.
 
+The routing suggester keeps its searchable choices and shows the complete capture in a wrapping, scrollable heading above the search box. Escape closes the dialog and leaves the current capture in the inbox.
+
 - **Skip / Later** leaves the source exactly as captured, including any original text replaced temporarily in the edit dialog.
 - **Work / Personal tasks** offer the current weekly note, an active project, or a new project.
 - **Work / Personal thoughts** are appended to that domain's thought note.

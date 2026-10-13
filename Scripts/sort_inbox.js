@@ -175,15 +175,58 @@ async function choose(ctx, choices, title) {
   return answer;
 }
 
+async function chooseCaptureRoute(ctx, choices, item, index, total) {
+  const { FuzzySuggestModal } = ctx.tp.obsidian;
+  const answer = await new Promise(resolve => {
+    class CaptureRouteModal extends FuzzySuggestModal {
+      constructor(app) {
+        super(app);
+        this.submitted = false;
+        this.setPlaceholder("Choose a route");
+        this.setTitle(`${index + 1}/${total} · ${item.kind}`);
+      }
+
+      getItems() { return choices; }
+      getItemText(choice) { return choice.label; }
+
+      onOpen() {
+        super.onOpen();
+        const preview = this.modalEl.createDiv();
+        preview.setText((index + 1) + "/" + total + " " + item.kind + "\n" + item.text);
+        preview.style.whiteSpace = "pre-wrap";
+        preview.style.overflowWrap = "anywhere";
+        preview.style.maxHeight = "40vh";
+        preview.style.overflowY = "auto";
+        preview.style.fontSize = "var(--font-ui-medium)";
+        preview.style.fontWeight = "normal";
+        preview.style.padding = "0.75em 1em";
+        preview.style.borderBottom = "1px solid var(--background-modifier-border)";
+        this.modalEl.prepend(preview);
+      }
+
+      selectSuggestion(match, event) {
+        this.submitted = true;
+        super.selectSuggestion(match, event);
+      }
+
+      onChooseItem(choice) { resolve(choice.value); }
+      onClose() { if (!this.submitted) resolve(null); }
+    }
+    new CaptureRouteModal(ctx.app).open();
+  });
+  if (answer == null) throw new Cancelled();
+  return answer;
+}
+
 async function classify(ctx, item, index, total) {
   for (;;) {
-    const choice = await choose(ctx, [
+    const choice = await chooseCaptureRoute(ctx, [
       { label: "Work", value: "work" },
       { label: "Personal", value: "personal" },
       { label: "Delete", value: "delete" },
       { label: "Skip / Later", value: "skip" },
       { label: "Edit before routing", value: "edit" }
-    ], `${index + 1}/${total} · ${item.kind} · ${item.text}`);
+    ], item, index, total);
     if (choice !== "edit") return choice;
     const taskPrefix = ctx.config.inbox.taskPrefix;
     const prefix = item.kind === "task" ? `${taskPrefix} ` : item.text.match(/^([ \t]*-[ \t]*)/)?.[1] ?? "";
