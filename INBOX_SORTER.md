@@ -2,7 +2,7 @@
 
 This Templater workflow processes tasks first, then thoughts, from `Inbox/Inbox PC.md` and the individual Markdown files in `Inbox/Inbox Phone`.
 
-Each nonblank PC line is one capture. Each phone file must contain exactly one nonblank line. Blank phone files are left alone. Tasks start with exactly `- [o]` (the letter **o**), while thoughts use `- thought text`. The task check matches the full checkbox prefix, so a leading `-` on a thought does not make it a task. Older nonblank captures without a bullet are also accepted as thoughts. Captures should contain no frontmatter or extra headings.
+Each nonblank PC line is one capture. Each phone file must contain exactly one nonblank line. Blank phone files are left alone. Tasks start with `- [o]` or `- [c]`, while thoughts use `- thought text`. The task check matches a configured checkbox prefix, so a leading `-` on a thought does not make it a task. Older nonblank captures without a bullet are also accepted as thoughts. Captures should contain no frontmatter or extra headings.
 
 ## Setup
 
@@ -24,7 +24,7 @@ This is the sorter's own vault configuration. The Codex `config.toml` linked in 
 | `inbox.pcNote` | PC inbox note, including `.md` |
 | `inbox.phoneFolder` | Folder of individual phone captures |
 | `inbox.phoneRecursive` | Include phone subfolders when `true`; defaults to `false` |
-| `inbox.taskPrefix` | Exact task prefix; configured as `- [o]` |
+| `inbox.taskPrefixes` | Recognized task prefixes; configured as `- [o]` and `- [c]`. Older single `taskPrefix` configs also recognize `- [c]`. |
 | `logPath` | Text log of original captures and destinations |
 | `journalPath` | Recovery journal for the current operation |
 | `activeProject.type`, `activeProject.status` | Required project frontmatter values; defaults to `project` and `active` |
@@ -60,12 +60,12 @@ New projects are created from their configured template and receive the configur
 
 ## Processing
 
-Each item offers **Work**, **Personal**, **Delete**, **Skip / Later**, and **Edit before routing**. Editing returns to that menu. Task editing changes the text after `- [o]`, retaining the task prefix. Thought editing changes the text after its `-` bullet, retaining that prefix. The edit prompt accepts the body or the complete prefixed line without doubling its prefix.
+Each item offers **Work**, **Personal**, **Delete**, **Skip / Later**, and **Edit before routing**. Editing returns to that menu. Task editing changes the text after `- [o]` or `- [c]`, retaining the original task prefix. Thought editing changes the text after its `-` bullet, retaining that prefix. The edit prompt accepts the body or the complete prefixed line without doubling its prefix.
 
 The routing suggester keeps its searchable choices and shows the complete capture in a wrapping, scrollable heading above the search box. Escape closes the dialog and leaves the current capture in the inbox.
 
 - **Skip / Later** leaves the source exactly as captured, including any original text replaced temporarily in the edit dialog.
-- **Work / Personal tasks** offer the current weekly note, an active project, or a new project.
+- **Work / Personal tasks** first offer Individual task (the current weekly note) or Project. The project picker lists Create new project first, followed by active projects.
 - **Work / Personal thoughts** are appended to that domain's thought note.
 - **Delete** logs the original capture with `[deleted]` as its destination, then removes it.
 - Closing any selection or edit dialog stops the run and leaves that item unchanged. Previously completed items stay processed.

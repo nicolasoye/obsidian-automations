@@ -4,7 +4,7 @@
     "pcNote": "Inbox/Inbox PC.md",
     "phoneFolder": "Inbox/Inbox Phone",
     "phoneRecursive": false,
-    "taskPrefix": "- [o]"
+    "taskPrefixes": ["- [o]", "- [c]"]
   },
   "logPath": "Inbox/inbox_log.txt",
   "journalPath": "Inbox/inbox_sorter_state.json",

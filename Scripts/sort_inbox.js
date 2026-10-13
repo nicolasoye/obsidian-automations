@@ -77,7 +77,10 @@ function validateConfig(ctx) {
   }
   config.inbox.pcNote = canonicalPath(ctx, vaultPath(config.inbox.pcNote, "inbox.pcNote"));
   config.inbox.phoneFolder = canonicalPath(ctx, vaultPath(config.inbox.phoneFolder, "inbox.phoneFolder"));
-  config.inbox.taskPrefix = required(config.inbox.taskPrefix, "inbox.taskPrefix");
+  // Older vaults with the single-prefix setting also recognize the new checkbox.
+  const prefixes = config.inbox.taskPrefixes ?? [config.inbox.taskPrefix, "- [c]"];
+  if (!Array.isArray(prefixes) || prefixes.length === 0) throw new Error("inbox.taskPrefixes must be a nonempty list.");
+  config.inbox.taskPrefixes = prefixes.map((prefix, index) => required(prefix, `inbox.taskPrefixes[${index}]`));
   if (typeof config.inbox.phoneRecursive !== "boolean") throw new Error("inbox.phoneRecursive must be true or false.");
   config.logPath = canonicalPath(ctx, vaultPath(config.logPath, "logPath"));
   config.journalPath = canonicalPath(ctx, vaultPath(config.journalPath, "journalPath"));
@@ -162,7 +165,8 @@ async function collectItems(ctx) {
     if (kind === "phone" && captures.length > 1) throw new Error(`Phone capture must contain one nonblank line: ${file.path}`);
     for (const row of captures) {
       row.id = newId();
-      const item = { id: row.id, doc, original: row.text, text: row.text, kind: row.text.startsWith(ctx.config.inbox.taskPrefix) ? "task" : "thought" };
+      const taskPrefix = ctx.config.inbox.taskPrefixes.find(prefix => row.text.startsWith(prefix));
+      const item = { id: row.id, doc, original: row.text, text: row.text, taskPrefix, kind: taskPrefix ? "task" : "thought" };
       (item.kind === "task" ? tasks : thoughts).push(item);
     }
   }
@@ -228,7 +232,7 @@ async function classify(ctx, item, index, total) {
       { label: "5. Edit before routing", value: "edit" }
     ], item, index, total);
     if (choice !== "edit") return choice;
-    const taskPrefix = ctx.config.inbox.taskPrefix;
+    const taskPrefix = item.taskPrefix;
     const prefix = item.kind === "task" ? `${taskPrefix} ` : item.text.match(/^([ \t]*-[ \t]*)/)?.[1] ?? "";
     const initial = item.kind === "task" ? item.text.slice(taskPrefix.length).trimStart() : item.text.slice(prefix.length);
     const edited = await ctx.tp.system.prompt(`Edit ${item.kind}`, initial, false, false);
@@ -238,8 +242,10 @@ async function classify(ctx, item, index, total) {
       continue;
     }
     let body = edited.trim();
-    if (item.kind === "task" && body.startsWith(taskPrefix)) body = body.slice(taskPrefix.length).trimStart();
-    else if (prefix && body.startsWith("- ")) body = body.slice(2).trimStart();
+    if (item.kind === "task") {
+      const enteredPrefix = ctx.config.inbox.taskPrefixes.find(candidate => body.startsWith(candidate));
+      if (enteredPrefix) body = body.slice(enteredPrefix.length).trimStart();
+    } else if (prefix && body.startsWith("- ")) body = body.slice(2).trimStart();
     if (!body) {
       notice(ctx.tp, "Enter text after the capture prefix. The item has not been changed.");
       continue;
@@ -297,11 +303,8 @@ async function existingProjectDestination(ctx, domain) {
     }
   }
   active.sort((a, b) => a.path.localeCompare(b.path));
-  if (!active.length) {
-    notice(ctx.tp, `No active ${domain} projects found in ${folder}. Choose another destination.`);
-    return null;
-  }
-  const path = await choose(ctx, active.map(file => ({ label: `${file.basename} — ${file.path}`, value: file.path })), `Project for ${domain} task`);
+  const path = await choose(ctx, [{ label: "Create new project", value: "new" }, ...active.map(file => ({ label: `${file.basename} — ${file.path}`, value: file.path }))], `Project for ${domain} task`);
+  if (path === "new") return newProjectDestination(ctx, domain);
   return { path, heading, creation: null, creationConfirmed: true };
 }
 
@@ -338,13 +341,10 @@ async function destinationFor(ctx, item, domain) {
   for (;;) {
     const choice = await choose(ctx, [
       { label: "1. Individual task → current weekly note", value: "weekly" },
-      { label: "2. Add to an active project", value: "existing" },
-      { label: "3. Create a new project", value: "new" }
+      { label: "2. Project", value: "project" }
     ], `Destination for ${domain} task · ${item.text}`);
     if (choice === "weekly") return weeklyDestination(ctx, domain);
-    if (choice === "new") return newProjectDestination(ctx, domain);
-    const destination = await existingProjectDestination(ctx, domain);
-    if (destination) return destination;
+    return existingProjectDestination(ctx, domain);
   }
 }
 
