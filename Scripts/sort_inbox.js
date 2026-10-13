@@ -221,11 +221,11 @@ async function chooseCaptureRoute(ctx, choices, item, index, total) {
 async function classify(ctx, item, index, total) {
   for (;;) {
     const choice = await chooseCaptureRoute(ctx, [
-      { label: "Work", value: "work" },
-      { label: "Personal", value: "personal" },
-      { label: "Delete", value: "delete" },
-      { label: "Skip / Later", value: "skip" },
-      { label: "Edit before routing", value: "edit" }
+      { label: "1. Work", value: "work" },
+      { label: "2. Personal", value: "personal" },
+      { label: "3. Delete", value: "delete" },
+      { label: "4. Skip / Later", value: "skip" },
+      { label: "5. Edit before routing", value: "edit" }
     ], item, index, total);
     if (choice !== "edit") return choice;
     const taskPrefix = ctx.config.inbox.taskPrefix;
