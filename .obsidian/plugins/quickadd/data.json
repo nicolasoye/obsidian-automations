@@ -1,0 +1,261 @@
+{
+  "choices": [
+    {
+      "id": "8ca639d8-8457-4f07-be72-651f05f5429f",
+      "name": "Tab-Closer",
+      "type": "Macro",
+      "command": true,
+      "runOnStartup": false,
+      "macro": {
+        "name": "Tab-Closer",
+        "id": "9a0ebc55-6b7c-41e9-a126-42dcdf112921",
+        "commands": [
+          {
+            "name": "Close current tab",
+            "type": "Obsidian",
+            "id": "4f853a9d-9468-4593-9911-ab1f63b6f8ba",
+            "commandId": "workspace:close"
+          },
+          {
+            "name": "Wait",
+            "type": "Wait",
+            "id": "6d657ae8-a3f8-4411-b08d-3513f1ee52aa",
+            "time": 50
+          },
+          {
+            "name": "Go to previous tab",
+            "type": "Obsidian",
+            "id": "fbb9eab4-7e57-456a-a63e-d11605efcb77",
+            "commandId": "workspace:previous-tab"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a884a7be-5f22-45df-92e5-a949558a9826",
+      "name": "Capture task",
+      "type": "Capture",
+      "command": true,
+      "appendLink": false,
+      "captureTo": "Inbox/Inbox PC.md",
+      "captureToActiveFile": false,
+      "activeFileWritePosition": "cursor",
+      "createFileIfItDoesntExist": {
+        "enabled": false,
+        "createWithTemplate": true,
+        "template": ""
+      },
+      "format": {
+        "enabled": true,
+        "format": "```js quickadd\nfunction defaultDue() {\n  const m = window.moment();\n  const iso = m.isoWeekday(); // 1=Mon ... 7=Sun\n  return (iso <= 5 ? m.clone().isoWeekday(5) : m.clone().add(1, 'week').isoWeekday(1))\n    .format('YYYY-MM-DD');\n}\nconst initLine = `- [o]  📅 ${defaultDue()}`;\n\n\nconst tasksApi = this.app.plugins.plugins['obsidian-tasks-plugin'].apiV1;\nlet editedTaskLine = await tasksApi.editTaskLineModal(initLine);\n\nreturn editedTaskLine + '\\n';\n```"
+      },
+      "insertAfter": {
+        "enabled": false,
+        "after": "# New Tasks",
+        "insertAtEnd": false,
+        "considerSubsections": false,
+        "createIfNotFound": false,
+        "createIfNotFoundLocation": "top",
+        "inline": false,
+        "replaceExisting": false,
+        "blankLineAfterMatchMode": "auto"
+      },
+      "newLineCapture": {
+        "enabled": false,
+        "direction": "below"
+      },
+      "prepend": true,
+      "task": false,
+      "openFile": false,
+      "fileOpening": {
+        "location": "tab",
+        "direction": "vertical",
+        "mode": "default",
+        "focus": true
+      },
+      "templater": {
+        "afterCapture": "none"
+      },
+      "captureToCanvasNodeId": ""
+    },
+    {
+      "id": "42cf0455-1618-413a-98f8-783b8080cd80",
+      "name": "Capture task inline",
+      "type": "Capture",
+      "command": true,
+      "appendLink": false,
+      "captureTo": "PhD Notes/Planning/Weekly/{{DATE:YY[W]ww}}.md",
+      "captureToActiveFile": true,
+      "captureToCanvasNodeId": "",
+      "activeFileWritePosition": "cursor",
+      "createFileIfItDoesntExist": {
+        "enabled": true,
+        "createWithTemplate": true,
+        "template": "Templates/Automation Templates/_Weekly Note Template.md"
+      },
+      "format": {
+        "enabled": true,
+        "format": "```js quickadd\nfunction defaultDue() {\n  const m = window.moment();\n  const iso = m.isoWeekday(); // 1=Mon ... 7=Sun\n  return (iso <= 5 ? m.clone().isoWeekday(5) : m.clone().add(1, 'week').isoWeekday(1))\n    .format('YYYY-MM-DD');\n}\nconst initLine = `- [o]  📅 ${defaultDue()}`;\n\n\nconst tasksApi = this.app.plugins.plugins['obsidian-tasks-plugin'].apiV1;\nlet editedTaskLine = await tasksApi.editTaskLineModal(initLine);\n\nreturn editedTaskLine + '\\n';\n```"
+      },
+      "insertAfter": {
+        "enabled": false,
+        "after": "# New Tasks",
+        "insertAtEnd": false,
+        "considerSubsections": false,
+        "createIfNotFound": false,
+        "createIfNotFoundLocation": "top",
+        "inline": false,
+        "replaceExisting": false,
+        "blankLineAfterMatchMode": "auto"
+      },
+      "newLineCapture": {
+        "enabled": false,
+        "direction": "below"
+      },
+      "prepend": false,
+      "task": false,
+      "openFile": false,
+      "fileOpening": {
+        "location": "tab",
+        "direction": "vertical",
+        "mode": "default",
+        "focus": true
+      },
+      "templater": {
+        "afterCapture": "none"
+      }
+    },
+    {
+      "id": "6c5c3e12-64cb-4593-9f23-81e9ea15548e",
+      "name": "Sort Inbox Button",
+      "type": "Macro",
+      "command": true,
+      "runOnStartup": false,
+      "macro": {
+        "name": "Sort Inbox",
+        "id": "6a8f8cf1-0d30-40f4-90ce-5f849e3e712b",
+        "commands": [
+          {
+            "name": "Start inbox sorting",
+            "type": "UserScript",
+            "id": "df7364ee-06bb-4dc7-86d6-a01d33873815",
+            "path": "Scripts/start_inbox_sorting.js",
+            "settings": {}
+          }
+        ]
+      }
+    }
+  ],
+  "inputPrompt": "single-line",
+  "persistInputPromptDrafts": true,
+  "useSelectionAsCaptureValue": true,
+  "devMode": false,
+  "templateFolderPath": "zTemplates",
+  "announceUpdates": "major",
+  "version": "2.12.0",
+  "globalVariables": {},
+  "onePageInputEnabled": false,
+  "disableOnlineFeatures": true,
+  "enableRibbonIcon": false,
+  "showCaptureNotification": true,
+  "showInputCancellationNotification": false,
+  "enableTemplatePropertyTypes": false,
+  "dateAliases": {
+    "t": "today",
+    "tm": "tomorrow",
+    "yd": "yesterday",
+    "nw": "next week",
+    "nm": "next month",
+    "ny": "next year",
+    "lw": "last week",
+    "lm": "last month",
+    "ly": "last year"
+  },
+  "ai": {
+    "defaultModel": "Ask me",
+    "defaultSystemPrompt": "As an AI assistant within Obsidian, your primary goal is to help users manage their ideas and knowledge more effectively. Format your responses using Markdown syntax. Please use the [[Obsidian]] link format. You can write aliases for the links by writing [[Obsidian|the alias after the pipe symbol]]. To use mathematical notation, use LaTeX syntax. LaTeX syntax for larger equations should be on separate lines, surrounded with double dollar signs ($$). You can also inline math expressions by wrapping it in $ symbols. For example, use $$w_{ij}^{\text{new}}:=w_{ij}^{\text{current}}+etacdotdelta_jcdot x_{ij}$$ on a separate line, but you can write \"($eta$ = learning rate, $delta_j$ = error term, $x_{ij}$ = input)\" inline.",
+    "promptTemplatesFolderPath": "",
+    "showAssistant": true,
+    "providers": [
+      {
+        "name": "OpenAI",
+        "endpoint": "https://api.openai.com/v1",
+        "apiKey": "",
+        "models": [
+          {
+            "name": "gpt-3.5-turbo",
+            "maxTokens": 4096
+          },
+          {
+            "name": "gpt-3.5-turbo-16k",
+            "maxTokens": 16384
+          },
+          {
+            "name": "gpt-3.5-turbo-1106",
+            "maxTokens": 16385
+          },
+          {
+            "name": "gpt-4",
+            "maxTokens": 8192
+          },
+          {
+            "name": "gpt-4-32k",
+            "maxTokens": 32768
+          },
+          {
+            "name": "gpt-4-1106-preview",
+            "maxTokens": 128000
+          },
+          {
+            "name": "gpt-4-turbo",
+            "maxTokens": 128000
+          },
+          {
+            "name": "gpt-4o",
+            "maxTokens": 128000
+          },
+          {
+            "name": "gpt-4o-mini",
+            "maxTokens": 128000
+          }
+        ],
+        "autoSyncModels": false,
+        "modelSource": "modelsDev"
+      },
+      {
+        "name": "Gemini",
+        "endpoint": "https://generativelanguage.googleapis.com",
+        "apiKey": "",
+        "models": [
+          {
+            "name": "gemini-1.5-pro",
+            "maxTokens": 1000000
+          },
+          {
+            "name": "gemini-1.5-flash",
+            "maxTokens": 1000000
+          },
+          {
+            "name": "gemini-1.5-flash-8b",
+            "maxTokens": 1000000
+          }
+        ],
+        "autoSyncModels": false,
+        "modelSource": "modelsDev"
+      }
+    ]
+  },
+  "migrations": {
+    "migrateToMacroIDFromEmbeddedMacro": true,
+    "useQuickAddTemplateFolder": true,
+    "incrementFileNameSettingMoveToDefaultBehavior": true,
+    "mutualExclusionInsertAfterAndWriteToBottomOfFile": true,
+    "setVersionAfterUpdateModalRelease": true,
+    "addDefaultAIProviders": true,
+    "removeMacroIndirection": true,
+    "migrateFileOpeningSettings": true,
+    "backfillFileOpeningDefaults": true,
+    "setProviderModelDiscoveryMode": true,
+    "migrateProviderApiKeysToSecretStorage": true
+  }
+}
