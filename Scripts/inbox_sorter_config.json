@@ -17,7 +17,7 @@
       "weekly": {
         "folder": "PhD Notes/Planning/Weekly",
         "namingScheme": "[Tasks/Tasks_]GG[W]WW",
-        "templatePath": "Templates/Automation Templates/_Weekly Note Template.md",
+        "templatePath": "Templates/Automation Templates/_weekly_task_note_template.md",
         "appendHeading": "New Tasks"
       },
       "projects": {
@@ -33,7 +33,7 @@
       "weekly": {
         "folder": "Personal Notes/Planning/Weekly",
         "namingScheme": "[Tasks/Tasks_]GG[W]WW",
-        "templatePath": "Templates/Automation Templates/_Weekly Note Template.md",
+        "templatePath": "Templates/Automation Templates/_weekly_task_note_template.md",
         "appendHeading": "New Tasks"
       },
       "projects": {
