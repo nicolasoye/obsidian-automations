@@ -1,8 +1,8 @@
 /** QuickAdd entry point for the dashboard button. Keeps the active canvas open. */
 const CONFIG_PATH = "Scripts/inbox_sorter_config.json";
 const TEMPLATE_PATH = "Templates/TemplaterTemplates/Sort Inbox.md";
-const START_LOCK = Symbol.for("obsidian-automations.inbox-sorter.starting");
-const SORT_LOCK = Symbol.for("obsidian-automations.inbox-sorter.running");
+const START_LOCK = Symbol.for("notes.inbox-sorter.starting");
+const SORT_LOCK = Symbol.for("notes.inbox-sorter.running");
 
 module.exports = async function startInboxSorting({ app, obsidian }) {
   const notify = message => { if (obsidian?.Notice) new obsidian.Notice(message, 10000); };

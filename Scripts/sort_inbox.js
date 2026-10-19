@@ -4,7 +4,7 @@
  * Uses Obsidian APIs only; no filesystem or Node.js dependencies.
  */
 const DEFAULT_CONFIG_PATH = "Scripts/inbox_sorter_config.json";
-const LOCK_KEY = Symbol.for("obsidian-automations.inbox-sorter.running");
+const LOCK_KEY = Symbol.for("notes.inbox-sorter.running");
 const JOURNAL_VERSION = 2;
 
 class Cancelled extends Error {}

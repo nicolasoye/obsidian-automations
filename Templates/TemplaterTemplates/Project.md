@@ -4,8 +4,7 @@ status: active
 created: <% tp.date.now("YYYY-MM-DD") %>
 deadline:
 ---
-## Direction
-
+## Description & Direction
 
 ## Next actions
 
@@ -13,16 +12,13 @@ deadline:
 ## Backlog
 
 
+## Notes & Decisions
+
+
+## Milestones & Deadlines
+
+
 ## Meetings
-
-
-## Decisions
-
-
-## Milestones
-
-
-## Scope changes
 
 
 ## Project log

@@ -144,6 +144,53 @@
           }
         ]
       }
+    },
+    {
+      "id": "3b0b763d-acd1-47dd-a3fd-1a03e9ba7bad",
+      "name": "Capture thought",
+      "type": "Capture",
+      "command": true,
+      "appendLink": false,
+      "captureTo": "Inbox/Inbox PC.md",
+      "captureToActiveFile": false,
+      "captureToCanvasNodeId": "",
+      "activeFileWritePosition": "cursor",
+      "createFileIfItDoesntExist": {
+        "enabled": false,
+        "createWithTemplate": true,
+        "template": ""
+      },
+      "format": {
+        "enabled": true,
+        "format": "- {{Value}} {{DATE}}"
+      },
+      "insertAfter": {
+        "enabled": false,
+        "after": "# New Tasks",
+        "insertAtEnd": false,
+        "considerSubsections": false,
+        "createIfNotFound": false,
+        "createIfNotFoundLocation": "top",
+        "inline": false,
+        "replaceExisting": false,
+        "blankLineAfterMatchMode": "auto"
+      },
+      "newLineCapture": {
+        "enabled": false,
+        "direction": "below"
+      },
+      "prepend": false,
+      "task": false,
+      "openFile": false,
+      "fileOpening": {
+        "location": "tab",
+        "direction": "vertical",
+        "mode": "default",
+        "focus": true
+      },
+      "templater": {
+        "afterCapture": "none"
+      }
     }
   ],
   "inputPrompt": "single-line",
