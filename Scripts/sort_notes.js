@@ -2,7 +2,7 @@
  * Sort markdown notes that have no topic property into Personal or work topics.
  * Invoke from Templater: await tp.user.sort_notes(tp, configPath).
  */
-const DEFAULT_CONFIG_PATH = ".obsidian/Scripts/note_sorter_config.json";
+const DEFAULT_CONFIG_PATH = "Scripts/note_sorter_config.json";
 const LOCK_KEY = Symbol.for("notes.note-sorter.running");
 
 class Cancelled extends Error {}

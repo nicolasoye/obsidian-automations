@@ -1,5 +1,5 @@
 /** QuickAdd entry point for the dashboard button. Keeps the active canvas open. */
-const CONFIG_PATH = ".obsidian/Scripts/inbox_sorter_config.json";
+const CONFIG_PATH = "Scripts/inbox_sorter_config.json";
 const TEMPLATE_PATH = "Templates/Automation Templates/Sort Inbox.md";
 const START_LOCK = Symbol.for("notes.inbox-sorter.starting");
 const SORT_LOCK = Symbol.for("notes.inbox-sorter.running");
@@ -26,7 +26,7 @@ module.exports = async function startInboxSorting({ app, obsidian }) {
     const config = engine.create_running_config(template, template, 5);
     const tp = await engine.functions_generator.generate_object(config);
     if (typeof tp.user?.sort_inbox !== "function") {
-      throw new Error("Set Templater's Script files folder location to .obsidian/Scripts, then reload Templater.");
+      throw new Error("Set Templater's Script files folder location to Scripts, then reload Templater.");
     }
     return await tp.user.sort_inbox(tp, CONFIG_PATH);
   } catch (error) {

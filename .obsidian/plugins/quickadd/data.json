@@ -139,7 +139,7 @@
             "name": "Start inbox sorting",
             "type": "UserScript",
             "id": "df7364ee-06bb-4dc7-86d6-a01d33873815",
-            "path": ".obsidian/Scripts/start_inbox_sorting.js",
+            "path": "Scripts/start_inbox_sorting.js",
             "settings": {}
           }
         ]
@@ -159,7 +159,7 @@
             "name": "Start note sorting",
             "type": "UserScript",
             "id": "99e393fa-a445-4ff9-ae35-9cba959df2e5",
-            "path": ".obsidian/Scripts/start_note_sorting.js",
+            "path": "Scripts/start_note_sorting.js",
             "settings": {}
           }
         ]

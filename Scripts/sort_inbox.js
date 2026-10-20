@@ -3,7 +3,7 @@
  * Invoke after template execution: await tp.user.sort_inbox(tp, configPath).
  * Uses Obsidian APIs only; no filesystem or Node.js dependencies.
  */
-const DEFAULT_CONFIG_PATH = ".obsidian/Scripts/inbox_sorter_config.json";
+const DEFAULT_CONFIG_PATH = "Scripts/inbox_sorter_config.json";
 const LOCK_KEY = Symbol.for("notes.inbox-sorter.running");
 const JOURNAL_VERSION = 2;
 
