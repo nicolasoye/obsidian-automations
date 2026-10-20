@@ -162,7 +162,8 @@ async function chooseNoteRoute(ctx, note, index, total) {
   const options = [
     { label: "1. Work", value: "work" },
     { label: "2. Personal", value: "personal" },
-    { label: "3. Skip / Later", value: "skip" }
+    { label: "3. Skip / Later", value: "skip" },
+    { label: "4. Delete", value: "delete" }
   ];
   const answer = await new Promise(resolve => {
     class NoteRouteModal extends FuzzySuggestModal {
@@ -262,7 +263,7 @@ async function assignAndMove(ctx, note, topic) {
 }
 
 module.exports = async function sortNotes(tp, configPath = DEFAULT_CONFIG_PATH) {
-  const result = { status: "completed", processed: 0, skipped: 0 };
+  const result = { status: "completed", processed: 0, skipped: 0, deleted: 0 };
   const locks = globalThis[LOCK_KEY] ?? (globalThis[LOCK_KEY] = new WeakSet());
   const app = tp?.app;
   if (!app || locks.has(app)) {
@@ -284,6 +285,12 @@ module.exports = async function sortNotes(tp, configPath = DEFAULT_CONFIG_PATH) 
       const note = notes[index];
       const domainName = await chooseNoteRoute(ctx, note, index, notes.length);
       if (domainName === "skip") { result.skipped++; continue; }
+      if (domainName === "delete") {
+        if (typeof app.fileManager?.trashFile !== "function") throw new Error("This workflow requires Obsidian's FileManager.trashFile API.");
+        await app.fileManager.trashFile(note.file);
+        result.deleted++;
+        continue;
+      }
       const domain = ctx.config.domains[domainName];
       topicCache[domainName] ??= await existingTopics(ctx, domain);
       let topic = await chooseTopic(ctx, domainName, topicCache[domainName], note, index, notes.length);
