@@ -1,5 +1,6 @@
-/* Canvas button for the QuickAdd "Sort Inbox" choice. */
-.canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Inbox"] {
+/* Canvas buttons for the QuickAdd note sorting choices. */
+.canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Inbox"],
+.canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Notes"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -16,13 +17,15 @@
   cursor: pointer;
 }
 
-.canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Inbox"]:hover {
+.canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Inbox"]:hover,
+.canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Notes"]:hover {
   background-color: var(--interactive-accent-hover);
   color: var(--text-on-accent);
   text-decoration: none;
 }
 
-.canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Inbox"]:focus-visible {
+.canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Inbox"]:focus-visible,
+.canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Notes"]:focus-visible {
   outline: 2px solid var(--interactive-accent);
   outline-offset: 3px;
 }

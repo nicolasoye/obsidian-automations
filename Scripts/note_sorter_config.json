@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "templatePath": "Templates/Automation Templates/_topic_hub.md",
+  "excludedFoldersIncludingSubfolders": [
+    "Templates", "Inbox", "Personal Notes/Dashboard Personal", "PhD Notes/Dashboard"
+  ],
+  "excludedFoldersExact": [],
+  "domains": {
+    "personal": {
+      "root": "Personal Notes",
+      "topicsFolder": "Personal Notes/Topics"
+    },
+    "work": {
+      "root": "PhD Notes",
+      "topicsFolder": "PhD Notes/Topics"
+    }
+  }
+}

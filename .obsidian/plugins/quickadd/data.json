@@ -146,6 +146,26 @@
       }
     },
     {
+      "id": "4d77034d-50de-4636-af9f-1268273a8290",
+      "name": "Sort Notes Button",
+      "type": "Macro",
+      "command": true,
+      "runOnStartup": false,
+      "macro": {
+        "name": "Sort Notes",
+        "id": "628a76f5-d0f6-4ca5-82c3-c721a890178b",
+        "commands": [
+          {
+            "name": "Start note sorting",
+            "type": "UserScript",
+            "id": "99e393fa-a445-4ff9-ae35-9cba959df2e5",
+            "path": "Scripts/start_note_sorting.js",
+            "settings": {}
+          }
+        ]
+      }
+    },
+    {
       "id": "3b0b763d-acd1-47dd-a3fd-1a03e9ba7bad",
       "name": "Capture thought",
       "type": "Capture",

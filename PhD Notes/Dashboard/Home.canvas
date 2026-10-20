@@ -9,7 +9,7 @@
 		{"id":"e46b7520db1efd36","type":"file","file":"PhD Notes/Dashboard/Cards/Projects.md","x":20,"y":1640,"width":680,"height":430},
 		{"id":"e5f60718293a4b5c","type":"file","file":"PhD Notes/Dashboard/Cards/Current Week Focus.md","x":20,"y":40,"width":580,"height":300},
 		{"id":"f60718293a4b5c6d","type":"file","file":"PhD Notes/Dashboard/Cards/Overdue.md","x":20,"y":380,"width":580,"height":395},
-		{"id":"8a19bd03c4756e2f","type":"text","text":"## Inbox\n\n[Sort inbox](obsidian://quickadd?&choice=Sort%20Inbox%20Button)","x":670,"y":40,"width":350,"height":150,"color":"4"},
+		{"id":"8a19bd03c4756e2f","type":"text","text":"## Inbox\n\n[Sort inbox](obsidian://quickadd?&choice=Sort%20Inbox%20Button)  [Sort notes](obsidian://quickadd?&choice=Sort%20Notes%20Button)","x":670,"y":40,"width":350,"height":150,"color":"4"},
 		{"id":"0718293a4b5c6d7e","type":"file","file":"PhD Notes/Dashboard/Cards/Today.md","x":670,"y":210,"width":350,"height":565},
 		{"id":"293a4b5c6d7e8f90","type":"file","file":"PhD Notes/Dashboard/Cards/Calendar Week.md","x":20,"y":880,"width":1000,"height":610},
 		{"id":"18293a4b5c6d7e8f","type":"file","file":"PhD Notes/Dashboard/Cards/Next 7 Days.md","x":1080,"y":40,"width":350,"height":1450}
