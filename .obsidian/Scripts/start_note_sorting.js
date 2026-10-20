@@ -1,6 +1,6 @@
 /** QuickAdd entry point for the dashboard note sorter button. Keeps the active canvas open. */
-const CONFIG_PATH = "Scripts/note_sorter_config.json";
-const TEMPLATE_PATH = "Templates/TemplaterTemplates/Sort Notes.md";
+const CONFIG_PATH = ".obsidian/Scripts/note_sorter_config.json";
+const TEMPLATE_PATH = "Templates/Automation Templates/Sort Notes.md";
 const START_LOCK = Symbol.for("notes.note-sorter.starting");
 const SORT_LOCK = Symbol.for("notes.note-sorter.running");
 
@@ -25,7 +25,7 @@ module.exports = async function startNoteSorting({ app, obsidian }) {
     const config = engine.create_running_config(template, template, 5);
     const tp = await engine.functions_generator.generate_object(config);
     if (typeof tp.user?.sort_notes !== "function") {
-      throw new Error("Set Templater's Script files folder location to Scripts, then reload Templater.");
+      throw new Error("Set Templater's Script files folder location to .obsidian/Scripts, then reload Templater.");
     }
     return await tp.user.sort_notes(tp, CONFIG_PATH);
   } catch (error) {
