@@ -4,7 +4,7 @@ const TEMPLATE_PATH = "Templates/Automation Templates/Sort Notes.md";
 const START_LOCK = Symbol.for("notes.note-sorter.starting");
 const SORT_LOCK = Symbol.for("notes.note-sorter.running");
 
-module.exports = async function startNoteSorting({ app, obsidian }) {
+module.exports = async function startNoteSorting({ app, obsidian, variables = {} }) {
   const notify = message => { if (obsidian?.Notice) new obsidian.Notice(message, 10000); };
   const locks = globalThis[START_LOCK] ?? (globalThis[START_LOCK] = new WeakSet());
   if (!app) throw new Error("The note sorting button must be run through QuickAdd.");
@@ -27,7 +27,7 @@ module.exports = async function startNoteSorting({ app, obsidian }) {
     if (typeof tp.user?.sort_notes !== "function") {
       throw new Error("Set Templater's Script files folder location to Scripts, then reload Templater.");
     }
-    return await tp.user.sort_notes(tp, CONFIG_PATH);
+    return await tp.user.sort_notes(tp, CONFIG_PATH, { context: variables.dashboardContext });
   } catch (error) {
     notify(`Note sorting could not start: ${error.message}`);
     return { status: "error", error: error.message };

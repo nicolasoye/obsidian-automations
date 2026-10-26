@@ -9,7 +9,7 @@
 3. Add `type: project` to each project note's properties.
 4. Copy one of the view blocks below into a note.
 
-The views search the entire vault. Notes inside `Templates/` are excluded. If your templates live elsewhere, adjust `templateFolders` in the script.
+The views search the entire vault unless you pass `folder`, for example `await dv.view("Views/project-system", { mode: "dashboard", folder: "PhD Notes" });`. This restricts all view modes to that folder and its descendants. The Work and Personal dashboard cards pass their respective root folders. Notes inside `Templates/` are excluded. If your templates live elsewhere, adjust `templateFolders` in the script.
 
 Templater is needed to create notes using the supplied templates. Task dates can use the Tasks plugin's emoji format shown below.
 

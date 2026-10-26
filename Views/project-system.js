@@ -2,6 +2,7 @@
 // Call: await dv.view("Views/project-system", { mode: "dashboard" | "weekly" | "timeline" });
 
 const mode = input?.mode ?? "dashboard";
+const sourceFolder = String(input?.folder ?? "").replace(/^\/+|\/+$/g, "");
 // Change this if you use a different templates folder.
 const templateFolders = ["Templates/"];
 const isoWeek = date => moment(date).format("GGGG-[W]WW");
@@ -86,6 +87,7 @@ function conciseNextActions(info) {
 
 const pages = dv.pages()
   .where(page => String(page.type ?? "").toLowerCase() === "project"
+    && (!sourceFolder || page.file.path.startsWith(sourceFolder + "/"))
     && !templateFolders.some(folder => page.file.path.startsWith(folder)))
   .array();
 

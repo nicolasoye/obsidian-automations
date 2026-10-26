@@ -1,5 +1,5 @@
 ```tasks
-folder does not include PhD Notes/
+filter by function task.file.path.startsWith("Personal Notes/")
 not done
 due before today
 sort by due reverse

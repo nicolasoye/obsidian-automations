@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "calendarNodes": [
+    {
+      "id": "c3d4e5f60718293a",
+      "type": "group",
+      "x": 0,
+      "y": 840,
+      "width": 1040,
+      "height": 680,
+      "color": "5",
+      "label": "Calendar · Personal"
+    },
+    {
+      "id": "293a4b5c6d7e8f90",
+      "type": "file",
+      "file": "Dashboard/Cards/Work/Calendar Week.md",
+      "x": 20,
+      "y": 880,
+      "width": 1000,
+      "height": 610
+    }
+  ],
+  "calendarOrder": {
+    "c3d4e5f60718293a": 1,
+    "293a4b5c6d7e8f90": 10
+  },
+  "calendarEdges": []
+}

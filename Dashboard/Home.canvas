@@ -1,0 +1,119 @@
+{
+  "nodes": [
+    {
+      "id": "d4e5f60718293a4b",
+      "type": "group",
+      "x": 0,
+      "y": 1580,
+      "width": 1450,
+      "height": 1160,
+      "color": "6",
+      "label": "Projects and actions · Personal"
+    },
+    {
+      "id": "db3d348c308d4d6f",
+      "type": "group",
+      "x": 1060,
+      "y": 0,
+      "width": 390,
+      "height": 1520,
+      "color": "2",
+      "label": "Coming up · Personal"
+    },
+    {
+      "id": "a1b2c3d4e5f60718",
+      "type": "group",
+      "x": 0,
+      "y": 0,
+      "width": 620,
+      "height": 800,
+      "color": "5",
+      "label": "Priorities · Personal"
+    },
+    {
+      "id": "b2c3d4e5f6071829",
+      "type": "group",
+      "x": 650,
+      "y": 0,
+      "width": 390,
+      "height": 800,
+      "color": "4",
+      "label": "Today · Personal"
+    },
+    {
+      "id": "4b5c6d7e8f901234",
+      "type": "file",
+      "file": "Dashboard/Cards/Personal/Navigation.md",
+      "x": 740,
+      "y": 1640,
+      "width": 690,
+      "height": 430
+    },
+    {
+      "id": "e46b7520db1efd36",
+      "type": "file",
+      "file": "Dashboard/Cards/Personal/Projects.md",
+      "x": 20,
+      "y": 1640,
+      "width": 680,
+      "height": 1060
+    },
+    {
+      "id": "e5f60718293a4b5c",
+      "type": "file",
+      "file": "Dashboard/Cards/Personal/Current Week Focus.md",
+      "x": 20,
+      "y": 40,
+      "width": 580,
+      "height": 300
+    },
+    {
+      "id": "f60718293a4b5c6d",
+      "type": "file",
+      "file": "Dashboard/Cards/Personal/Overdue.md",
+      "x": 20,
+      "y": 380,
+      "width": 580,
+      "height": 395
+    },
+    {
+      "id": "0718293a4b5c6d7e",
+      "type": "file",
+      "file": "Dashboard/Cards/Personal/Today.md",
+      "x": 670,
+      "y": 40,
+      "width": 350,
+      "height": 735
+    },
+    {
+      "id": "18293a4b5c6d7e8f",
+      "type": "file",
+      "file": "Dashboard/Cards/Personal/Next 7 Days.md",
+      "x": 1080,
+      "y": 40,
+      "width": 350,
+      "height": 1450
+    },
+    {
+      "id": "dashboardcontext",
+      "type": "file",
+      "file": "Dashboard/Cards/Personal/Context.md",
+      "x": 0,
+      "y": -240,
+      "width": 310,
+      "height": 190,
+      "color": "4"
+    },
+    {
+      "id": "8a19bd03c4756e2f",
+      "type": "file",
+      "file": "Dashboard/Cards/Personal/Inbox and actions.md",
+      "x": 325,
+      "y": -240,
+      "width": 895,
+      "height": 190,
+      "color": "4"
+    }
+  ],
+  "edges": []
+}

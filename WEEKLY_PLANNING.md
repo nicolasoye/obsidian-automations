@@ -2,7 +2,7 @@
 
 Reload Obsidian after syncing these files so QuickAdd and Tasks reload their settings. Kanban is installed and enabled in this vault, and the `quickadd-buttons` CSS snippet is enabled.
 
-1. Click **Create weekly planning board** at the bottom of a note made from `Templates/TemplaterTemplates/Weekly work review.md`, or **Plan this week** on the dashboard. Existing review notes do not gain the template button automatically; the same command is available through QuickAdd.
+1. Click **Create weekly planning board** at the bottom of a note made from `Templates/TemplaterTemplates/Weekly work review.md`, or **Plan work week / Plan personal week** on [[Dashboard/Home.canvas|the dashboard]]. Existing review notes do not gain the template button automatically; the same command is available through QuickAdd.
 2. Drag task cards between the eight columns. Keep the Apply schedule control in Overdue. Keep task cards intact, including their hidden identity comments.
 3. Click **Apply schedule** in Overdue, or run the **Apply weekly schedule** QuickAdd command. The completed log opens after application and cleanup.
 
@@ -10,7 +10,7 @@ Creating the board adds temporary block IDs to eligible tasks that lack an ID. I
 
 ## Configuration
 
-Both entry points read `Scripts/weekly_planning_config.json`. The exclusion lists are empty so you can configure them later:
+Both entry points read `Scripts/weekly_planning_config.json`. It defines Work (`PhD Notes/`) and Personal (`Personal Notes/`) roots. A dashboard planning link selects its context explicitly; standalone commands use the active board, a source note's context, or the dashboard's selected Context card. Each context collects tasks strictly within its own root and keeps one independent session under `_WeeklyPlanning/work/` or `_WeeklyPlanning/personal/`. Each board's Apply link carries that session's context, so switching the dashboard cannot redirect it. The exclusion lists are empty so you can configure them later:
 
 ```json
 {
@@ -29,15 +29,17 @@ The Tasks global query excludes `_WeeklyPlanning/` using a path filter. If you c
 
 Application validates every card and source task before its first source write. A conflict leaves the session available and names the affected card or note. Restore the task line or board card to its original state and retry. Unrelated edits elsewhere in a source note are allowed.
 
-An interrupted run keeps `_WeeklyPlanning/session.json`. Run **Create weekly planning board** and choose **Reopen / resume planning session** to finish interrupted creation, reopen the board, or resume application. **Apply weekly schedule** also resumes application. Once application starts, keep the saved card placements unchanged until it finishes.
+An interrupted run keeps `_WeeklyPlanning/work/session.json` or `_WeeklyPlanning/personal/session.json`. Run **Create weekly planning board** in that context and choose **Reopen / resume planning session** to finish interrupted creation, reopen the board, or resume application. **Apply weekly schedule** also resumes application. Once application starts, keep the saved card placements unchanged until it finishes.
+
+Legacy `_WeeklyPlanning/session.json` sessions remain supported. Open the original `_WeeklyPlanning/Weekly planning.md` board before running either command to recover that original session. New context sessions can coexist with it; it is never automatically assigned to Work or Personal. Without a dashboard or an explicitly selected context, the original standalone planner behavior is retained.
 
 Updates use [Obsidian's `Vault.process()`](https://docs.obsidian.md/Plugins/Vault) for each note. There is no transaction across notes: if a later note fails, earlier notes may already have their new dates. The manifest records intended dates before writing and checkpoints each note afterward. Recovery recognizes a write that succeeded before its checkpoint, completes one session log, and continues cleanup. Errors are retained in that log.
 
 To abandon planning before application, run **Create weekly planning board** and choose **Discard planning session**. This removes only temporary IDs from the source notes, preserves other edits and existing IDs, and deletes the temporary board and manifest. Once date application has begun, use Apply to finish the recorded changes and cleanup before creating another session.
 
-Use one active Obsidian instance/device for this workflow. The session file enforces one unfinished session, and an in-memory lock prevents overlapping commands in one app; it cannot coordinate simultaneous writes from multiple devices.
+Use one active Obsidian instance/device for this workflow. Each context's session file enforces one unfinished session in that context, and an in-memory lock prevents overlapping commands in one app; it cannot coordinate simultaneous writes from multiple devices.
 
-Logs are ordinary Markdown in `Reviews/Rescheduling logs/`. They contain changed tasks, old/new dates, destinations, unchanged-task counts, application errors and links to source notes or pre-existing permanent blocks. They do not link to a weekly review.
+Logs are ordinary Markdown in `Reviews/Rescheduling logs/work/` or `Reviews/Rescheduling logs/personal/`; legacy logs remain directly under `Reviews/Rescheduling logs/`. They contain changed tasks, old/new dates, destinations, unchanged-task counts, application errors and links to source notes or pre-existing permanent blocks. They do not link to a weekly review.
 
 ## Files and verification
 
@@ -51,7 +53,7 @@ Logs are ordinary Markdown in `Reviews/Rescheduling logs/`. They contain changed
 Run the isolated tests with:
 
 ```sh
-node --test Scripts/tests/weekly_planning.test.cjs
+node --test Scripts/tests/*.test.cjs
 ```
 
 The tests use an in-memory vault and cover calendar boundaries, exclusions, card/source conflicts, duplicate descriptions, recurrence and nesting preservation, write races, interrupted creation/application/logging/cleanup, discard and the shared lock. They do not edit real tasks. After reloading Obsidian, check that the review button opens a Kanban board, drag one card, and verify its source date and generated log after applying.

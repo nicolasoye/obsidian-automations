@@ -1,4 +1,5 @@
 /* QuickAdd buttons for sorting and weekly planning, including Markdown and Kanban cards. */
+a[href^="obsidian://quickadd?"][href*="choice=Switch%20dashboard%20context"],
 .canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Inbox"],
 .canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Notes"],
 a[href^="obsidian://quickadd?"][href*="choice=Create%20weekly%20planning%20board"],
@@ -20,6 +21,7 @@ a[href^="obsidian://quickadd?"][href*="choice=Apply%20weekly%20schedule"] {
 }
 
 .canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Inbox"]:hover,
+a[href^="obsidian://quickadd?"][href*="choice=Switch%20dashboard%20context"]:hover,
 .canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Notes"]:hover,
 a[href^="obsidian://quickadd?"][href*="choice=Create%20weekly%20planning%20board"]:hover,
 a[href^="obsidian://quickadd?"][href*="choice=Apply%20weekly%20schedule"]:hover {
@@ -29,6 +31,7 @@ a[href^="obsidian://quickadd?"][href*="choice=Apply%20weekly%20schedule"]:hover 
 }
 
 .canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Inbox"]:focus-visible,
+a[href^="obsidian://quickadd?"][href*="choice=Switch%20dashboard%20context"]:focus-visible,
 .canvas-node-content a[href^="obsidian://quickadd?"][href*="choice=Sort%20Notes"]:focus-visible,
 a[href^="obsidian://quickadd?"][href*="choice=Create%20weekly%20planning%20board"]:focus-visible,
 a[href^="obsidian://quickadd?"][href*="choice=Apply%20weekly%20schedule"]:focus-visible {

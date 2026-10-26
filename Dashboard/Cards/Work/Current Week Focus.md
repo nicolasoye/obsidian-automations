@@ -1,5 +1,5 @@
 ```dataviewjs
-const settings = dv.page("PhD Notes/Dashboard/Dashboard Settings");
+const settings = dv.page("Dashboard/Settings/Work");
 
 if (!settings) {
   dv.paragraph("⚠️ Dashboard settings were not found.");
@@ -30,7 +30,7 @@ try {
 
 if (!markdown) {
   dv.paragraph(`⚠️ Weekly note not found: [[${weeklyPath}]]`);
-  dv.paragraph("Update `weekly_note_folder` and `weekly_note_format` in [[Dashboard/Dashboard Settings]].");
+  dv.paragraph("Update `weekly_note_folder` and `weekly_note_format` in [[Dashboard/Settings/Work]].");
   return;
 }
 

@@ -251,6 +251,26 @@
           }
         ]
       }
+    },
+    {
+      "id": "058f766e-e2c4-41dd-afbe-b86d61a51fda",
+      "name": "Switch dashboard context",
+      "type": "Macro",
+      "command": true,
+      "runOnStartup": false,
+      "macro": {
+        "name": "Switch dashboard context",
+        "id": "df4f8d43-27c9-4c0d-9e12-b257bcd99e00",
+        "commands": [
+          {
+            "name": "Switch dashboard context",
+            "type": "UserScript",
+            "id": "b1b15aea-fceb-47d2-b7a6-634643020ce5",
+            "path": "Scripts/switch_dashboard.js",
+            "settings": {}
+          }
+        ]
+      }
     }
   ],
   "inputPrompt": "single-line",

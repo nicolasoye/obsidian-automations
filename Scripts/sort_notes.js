@@ -120,7 +120,9 @@ function isExcluded(path, ctx) {
 }
 
 async function collectNotes(ctx) {
-  const files = ctx.app.vault.getMarkdownFiles().filter(file => !isExcluded(file.path, ctx)).sort((a, b) => a.path.localeCompare(b.path));
+  const files = ctx.app.vault.getMarkdownFiles()
+    .filter(file => !isExcluded(file.path, ctx) && (!ctx.context || within(file.path, ctx.config.domains[ctx.context].root)))
+    .sort((a, b) => a.path.localeCompare(b.path));
   const notes = [];
   for (const file of files) {
     const properties = await frontmatter(ctx, file);
@@ -164,7 +166,7 @@ async function chooseNoteRoute(ctx, note, index, total) {
     { label: "2. Personal", value: "personal" },
     { label: "3. Skip / Later", value: "skip" },
     { label: "4. Delete", value: "delete" }
-  ];
+  ].filter(option => !ctx.context || !["work", "personal"].includes(option.value) || option.value === ctx.context);
   const answer = await new Promise(resolve => {
     class NoteRouteModal extends FuzzySuggestModal {
       constructor(app) {
@@ -262,7 +264,7 @@ async function assignAndMove(ctx, note, topic) {
   }
 }
 
-module.exports = async function sortNotes(tp, configPath = DEFAULT_CONFIG_PATH) {
+module.exports = async function sortNotes(tp, configPath = DEFAULT_CONFIG_PATH, options = {}) {
   const result = { status: "completed", processed: 0, skipped: 0, deleted: 0 };
   const locks = globalThis[LOCK_KEY] ?? (globalThis[LOCK_KEY] = new WeakSet());
   const app = tp?.app;
@@ -275,7 +277,8 @@ module.exports = async function sortNotes(tp, configPath = DEFAULT_CONFIG_PATH) 
   locks.add(app);
   try {
     configPath = canonicalPath({ app }, vaultPath(configPath, "configuration path"));
-    const ctx = { tp, app, configPath, config: JSON.parse(await app.vault.adapter.read(configPath)) };
+    if (options.context != null && !["work", "personal"].includes(options.context)) throw new Error("Invalid note sorting context.");
+    const ctx = { tp, app, configPath, context: options.context, config: JSON.parse(await app.vault.adapter.read(configPath)) };
     validateConfig(ctx);
     const template = app.vault.getAbstractFileByPath(ctx.config.templatePath);
     if (!template || template.extension !== "md") throw new Error(`Topic hub template not found: ${ctx.config.templatePath}`);

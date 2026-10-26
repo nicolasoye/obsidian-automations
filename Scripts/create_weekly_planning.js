@@ -31,11 +31,44 @@ async function config(vault) {
   c.temporaryFolder = path(c.temporaryFolder);
   c.logFolder = path(c.logFolder);
   assert(!inside(c.temporaryFolder, c.logFolder) && !inside(c.logFolder, c.temporaryFolder), "Temporary and log folders must not overlap.");
+  if (c.contexts) {
+    for (const context of ["work", "personal"]) c.contexts[context].root = path(c.contexts[context]?.root);
+    const work = c.contexts.work.root, personal = c.contexts.personal.root;
+    assert(!inside(work, personal) && !inside(personal, work), "Work and Personal roots must not overlap.");
+  }
   return c;
+}
+
+async function planningContext(params, c) {
+  const { app, variables = {} } = params;
+  const active = app.workspace.getActiveFile?.()?.path ?? "";
+  const boardContext = ["work", "personal"].find(context => active === `${c.temporaryFolder}/${context}/Weekly planning.md`);
+  if (variables.dashboardContext != null) {
+    assert(["work", "personal"].includes(variables.dashboardContext), "Invalid planning context.");
+    return variables.dashboardContext;
+  }
+  // Existing boards remain usable independently of the dashboard selection.
+  if (active === `${c.temporaryFolder}/Weekly planning.md`) return null;
+  if (boardContext) return boardContext;
+  const sourceContext = ["work", "personal"].find(context => c.contexts?.[context]?.root && inside(active, c.contexts[context].root));
+  if (sourceContext) return sourceContext;
+  const dashboard = app.vault.getAbstractFileByPath("Dashboard/Home.canvas");
+  if (!dashboard) return null; // Compatibility with the original standalone planner.
+  const selector = JSON.parse(await app.vault.read(dashboard)).nodes?.find(node => node.id === "dashboardcontext");
+  const context = selector?.file?.match(/^Dashboard\/Cards\/(Work|Personal)\/Context\.md$/)?.[1].toLowerCase();
+  assert(["work", "personal"].includes(context), "The dashboard has no valid selected context.");
+  return context;
+}
+
+function scopedConfig(c, context) {
+  if (!context) return c;
+  const sourceRoot = path(c.contexts?.[context]?.root);
+  return { ...c, context, sourceRoot, temporaryFolder: `${c.temporaryFolder}/${context}`, logFolder: `${c.logFolder}/${context}` };
 }
 
 function inside(note, folder) { return note === folder || note.startsWith(folder + "/"); }
 function excluded(note, c) {
+  if (c.sourceRoot && !inside(note, c.sourceRoot)) return true;
   const parent = note.includes("/") ? note.slice(0, note.lastIndexOf("/")) : "";
   return c.excludedFolders.includes(parent) || [...c.excludedFolderTrees, c.temporaryFolder, c.logFolder].some(folder => inside(note, folder));
 }
@@ -125,15 +158,16 @@ function noteLink(sourcePath, id, label = "Source") {
 function card(task, session) {
   return `${plain(task.description)} · Original due: ${task.originalDate} · ${noteLink(task.sourcePath, task.blockId)} <!-- wp:${session.id}:${task.key} -->`;
 }
-function control() {
-  return `[Apply schedule](obsidian://quickadd?choice=${encodeURIComponent(APPLY_CHOICE)})`;
+function control(s) {
+  const context = s?.context ? `&value-dashboardContext=${encodeURIComponent(s.context)}` : "";
+  return `[Apply schedule](obsidian://quickadd?choice=${encodeURIComponent(APPLY_CHOICE)}${context})`;
 }
 function boardText(s) {
-  const out = ["---", "kanban-plugin: board", "cssclasses:", "  - weekly-planning-board", "---", ""];
+  const out = ["---", "kanban-plugin: board", ...(s.context ? [`planning_context: ${s.context}`] : []), "cssclasses:", "  - weekly-planning-board", "---", ""];
   for (const col of COLUMNS) {
     out.push(`## ${col}`, "");
     for (const task of s.tasks.filter(t => t.initialColumn === col)) out.push(`- [ ] ${card(task, s)}`);
-    if (col === "Overdue") out.push(`- [ ] ${control()}`);
+    if (col === "Overdue") out.push(`- [ ] ${control(s)}`);
     out.push("", "");
   }
   out.push("%% kanban:settings", "```", JSON.stringify({ "kanban-plugin": "board", "show-checkboxes": false, "new-card-insertion-method": "append", "move-task-metadata": false, "move-dates": false, "move-tags": false }), "```", "%%", "");
@@ -162,7 +196,7 @@ function placements(text, s) {
     }
     const m = line.match(/^- \[ \] (.*)$/);
     if (!m) { errors.push(`Unexpected or edited board content: ${line.slice(0, 100)}`); continue; }
-    if (m[1] === control()) { controls++; if (col !== "Overdue") errors.push("Keep the Apply schedule control in Overdue."); continue; }
+    if (m[1] === control(s)) { controls++; if (col !== "Overdue") errors.push("Keep the Apply schedule control in Overdue."); continue; }
     const task = expected.get(m[1]);
     if (!task) { errors.push(`Added or edited task card: ${m[1].slice(0, 100)}`); continue; }
     if (found.has(task.key)) errors.push(`Duplicate task card: ${task.description}`);
@@ -210,6 +244,8 @@ async function session(vault, c) {
   if (!f) return null;
   const s = JSON.parse(await vault.read(f));
   assert(s.version === 1 && s.manifestPath === p && Array.isArray(s.tasks), "Invalid weekly planning session manifest.");
+  assert((s.context ?? null) === (c.context ?? null), "This planning session belongs to a different context.");
+  if (c.sourceRoot) assert(s.config?.sourceRoot === c.sourceRoot && s.tasks.every(task => inside(task.sourcePath, c.sourceRoot)), "Planning session contains tasks outside its context.");
   return s;
 }
 async function open(app, p) { await app.workspace.getLeaf(false).openFile(file(app.vault, p)); }
@@ -245,7 +281,7 @@ function checkTask(items, task, s, allowApplied) {
 async function collect(vault, c, now) {
   const id = `${now.getTime().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
   const s = {
-    version: 1, id, phase: "creating", createdAt: now.toISOString(), dates: planningDates(now), config: c,
+    version: 1, id, context: c.context ?? null, phase: "creating", createdAt: now.toISOString(), dates: planningDates(now), config: c,
     manifestPath: `${c.temporaryFolder}/session.json`, boardPath: `${c.temporaryFolder}/Weekly planning.md`,
     logPath: `${c.logFolder}/Weekly rescheduling ${id}.md`, tasks: [], notes: {}, errors: []
   };
@@ -427,7 +463,8 @@ async function run(params, action) {
   locks.add(app);
   let s;
   try {
-    const c = await config(app.vault);
+    const base = await config(app.vault);
+    const c = scopedConfig(base, await planningContext(params, base));
     s = await session(app.vault, c);
     if (action === "apply") {
       assert(s, "No weekly planning session exists. Create a board first.");

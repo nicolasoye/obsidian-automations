@@ -5,5 +5,9 @@
   "excludedFolders": [],
   "excludedFolderTrees": [],
   "temporaryFolder": "_WeeklyPlanning",
-  "logFolder": "Reviews/Rescheduling logs"
+  "logFolder": "Reviews/Rescheduling logs",
+  "contexts": {
+    "work": { "root": "PhD Notes" },
+    "personal": { "root": "Personal Notes" }
+  }
 }
