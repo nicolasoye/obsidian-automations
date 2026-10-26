@@ -6,7 +6,10 @@
 ## Projects worked on
 
 ```dataviewjs
-await dv.view("Views/project-system", { mode: "weekly" });
+const previousWeek = moment(dv.current().file.name, "GGGG-[W]WW", true)
+  .subtract(1, "week")
+  .format("GGGG-[W]WW");
+await dv.view("Views/project-system", { mode: "weekly", week: previousWeek });
 ```
 
 ![[Dashboard/Cards/Last Week Focus]]
