@@ -4,7 +4,77 @@ status: active
 created: <% tp.date.now("YYYY-MM-DD") %>
 deadline:
 ---
+
+```dataviewjs
+const filePath = dv.current().file.path;
+
+const statuses = [
+  "active",
+  "waiting",
+  "paused",
+  "someday",
+  "completed",
+  "cancelled"
+];
+
+const container = dv.el("div", "");
+
+const label = container.createEl("span", {
+  text: `Status: ${dv.current().status ?? "unset"}  `
+});
+
+const button = container.createEl("button", {
+  text: "Change status"
+});
+
+const menu = container.createDiv();
+menu.style.display = "none";
+menu.style.flexWrap = "wrap";
+menu.style.gap = "8px";
+menu.style.marginTop = "8px";
+
+button.addEventListener("click", () => {
+  menu.style.display =
+    menu.style.display === "none" ? "flex" : "none";
+});
+
+for (const status of statuses) {
+  const option = menu.createEl("button", {
+    text: status
+  });
+
+  option.addEventListener("click", async () => {
+    const file = app.vault.getAbstractFileByPath(filePath);
+
+    if (!file || file.extension !== "md") {
+      new Notice("Project note not found.");
+      return;
+    }
+
+    option.disabled = true;
+
+    try {
+      await app.fileManager.processFrontMatter(
+        file,
+        frontmatter => {
+          frontmatter.status = status;
+        }
+      );
+
+      label.textContent = `Status: ${status}  `;
+      menu.style.display = "none";
+
+      new Notice(`Project status changed to ${status}`);
+    } catch (error) {
+      new Notice(`Could not update status: ${error.message ?? error}`);
+    } finally {
+      option.disabled = false;
+    }
+  });
+}
+```
 ## Description & Direction
+
 
 ## Next actions
 
@@ -18,7 +88,7 @@ deadline:
 ## Milestones & Deadlines
 
 
-## Meetings
+## Related notes
 
 
 ## Project log

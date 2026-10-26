@@ -2,7 +2,19 @@
   "version": 1,
   "templatePath": "Templates/Automation Templates/_topic_hub.md",
   "excludedFoldersIncludingSubfolders": [
-    "Templates", "Inbox", "Personal Notes/Dashboard Personal", "PhD Notes/Dashboard"
+    "Clippings",
+    "Dashboard",
+    "Inbox",
+    "Templates",
+    "Personal Notes/Dashboard Personal",
+    "Personal Notes/Planning",
+    "Personal Notes/Projects",
+    "PhD Notes/Dashboard",
+    "PhD Notes/Planning",
+    "PhD Notes/Projects",
+    "PhD Notes/zArchive",
+    "Scripts",
+    "Views"
   ],
   "excludedFoldersExact": [],
   "domains": {

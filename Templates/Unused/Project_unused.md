@@ -2,10 +2,10 @@
 type: project
 status: active
 review:
-created: <% tp.date.now("YYYY-MM-DD") %>
+created: 2026-10-22
 ---
 
-# <% tp.file.title %>
+# Project_unused
 
 > [!summary] Outcome
 > What must be true for this project to be considered complete?

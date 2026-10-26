@@ -96,10 +96,10 @@ const projects = await Promise.all(pages.map(async page => {
   const range = section(lines, "Next actions");
   const next = range
     ? [...(page.file.tasks ?? [])].filter(task =>
-        task.line >= range.start && task.line < range.end && task.status === " ")
+        task.line >= range.start && task.line < range.end && task.status === "o")
     : [];
   const doneWeeks = [...(page.file.tasks ?? [])]
-    .filter(task => task.completed)
+    .filter(task => task.status === "c")
     .map(taskCompletion).filter(Boolean).map(isoWeek);
   const activityWeeks = [...new Set([...logWeeks(lines), ...doneWeeks])].sort();
   return {

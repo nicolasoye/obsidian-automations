@@ -57,7 +57,7 @@ In [[Dashboard/Dashboard Settings]], change the project and meeting paths when t
 
 The dashboard creates:
 
-- [[Projects/Projects]] as a project index
+- [[Project Overview]] as a project index
 - [[Meetings/Meeting Notes]] as a recent-meetings index
 - [[Project_unused]] as a minimal project template
 

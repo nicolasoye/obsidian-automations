@@ -18,6 +18,22 @@ await dv.view("Views/project-system", { mode: "weekly" });
 
 ## What is your focus?
 
+<%*
+const weekTitle = window.moment().format("GG[W]WW");
+const monday = window.moment(weekTitle, "GG[W]WW").startOf("isoWeek");
+const monday2 = monday.clone().subtract(1, "week");
+const friday = monday.clone().add(4, "day");
+%>
+
+# Done Tasks
+```tasks
+done
+done <% monday2.format("YYYY-MM-DD") %> <% friday.format("YYYY-MM-DD") %>
+group by function task.done.format("[%%]YYYY-MM-DD[%%]dddd, MMM D")
+sort by done reverse
+```
+
+
 # Overdue tasks
 ```tasks
 folder does not include Personal Notes/
