@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "openStatus": "o",
+  "dueDateMarker": "📅",
+  "excludedFolders": [],
+  "excludedFolderTrees": [],
+  "temporaryFolder": "_WeeklyPlanning",
+  "logFolder": "Reviews/Rescheduling logs"
+}

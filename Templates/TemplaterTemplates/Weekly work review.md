@@ -49,3 +49,5 @@ sort by due reverse
 <%* 
 await tp.file.move(`PhD Notes/Planning/Weekly/Reviews/${tp.date.now("GGGG-[W]WW")}`);
 %>
+
+[Create weekly planning board](obsidian://quickadd?choice=Create%20weekly%20planning%20board)

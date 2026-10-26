@@ -211,6 +211,46 @@
       "templater": {
         "afterCapture": "none"
       }
+    },
+    {
+      "id": "191546dc-70cc-49de-aa50-636813e3c34c",
+      "name": "Create weekly planning board",
+      "type": "Macro",
+      "command": true,
+      "runOnStartup": false,
+      "macro": {
+        "name": "Create weekly planning board",
+        "id": "69a1d2ed-a86d-44b9-98e5-ebf5dacb86a5",
+        "commands": [
+          {
+            "name": "Create weekly planning board",
+            "type": "UserScript",
+            "id": "efec2af4-fa0d-4594-83bb-6402530bee85",
+            "path": "Scripts/create_weekly_planning.js",
+            "settings": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "f1eb869c-9fd1-4a4f-8151-d8ed63f3b023",
+      "name": "Apply weekly schedule",
+      "type": "Macro",
+      "command": true,
+      "runOnStartup": false,
+      "macro": {
+        "name": "Apply weekly schedule",
+        "id": "b690bd7b-494f-4aec-b5ae-c8d0a4bb6e6f",
+        "commands": [
+          {
+            "name": "Apply weekly schedule",
+            "type": "UserScript",
+            "id": "9552e414-4692-480b-8d3a-bbfd9bcfce4f",
+            "path": "Scripts/apply_weekly_schedule.js",
+            "settings": {}
+          }
+        ]
+      }
     }
   ],
   "inputPrompt": "single-line",

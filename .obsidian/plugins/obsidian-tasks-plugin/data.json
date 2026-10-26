@@ -9,7 +9,7 @@
     "hide_query_elements": "# Hide postpone, edit and backinks\nhide postpone button\nhide edit button\nhide backlinks",
     "hide_everything": "# Hide everything except description and any tags\npreset hide_date_fields\npreset hide_non_date_fields\npreset hide_query_elements"
   },
-  "globalQuery": "",
+  "globalQuery": "filter by function !task.file.path.startsWith(\"_WeeklyPlanning/\")",
   "globalFilter": "",
   "removeGlobalFilter": false,
   "taskFormat": "tasksPluginEmoji",
