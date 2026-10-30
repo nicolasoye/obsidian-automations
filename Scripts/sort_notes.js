@@ -120,8 +120,11 @@ function isExcluded(path, ctx) {
 }
 
 async function collectNotes(ctx) {
+  const ignoredRoot = ctx.context
+    ? ctx.config.domains[ctx.context === "work" ? "personal" : "work"].root
+    : null;
   const files = ctx.app.vault.getMarkdownFiles()
-    .filter(file => !isExcluded(file.path, ctx) && (!ctx.context || within(file.path, ctx.config.domains[ctx.context].root)))
+    .filter(file => !isExcluded(file.path, ctx) && (!ignoredRoot || !within(file.path, ignoredRoot)))
     .sort((a, b) => a.path.localeCompare(b.path));
   const notes = [];
   for (const file of files) {
@@ -166,7 +169,7 @@ async function chooseNoteRoute(ctx, note, index, total) {
     { label: "2. Personal", value: "personal" },
     { label: "3. Skip / Later", value: "skip" },
     { label: "4. Delete", value: "delete" }
-  ].filter(option => !ctx.context || !["work", "personal"].includes(option.value) || option.value === ctx.context);
+  ];
   const answer = await new Promise(resolve => {
     class NoteRouteModal extends FuzzySuggestModal {
       constructor(app) {
