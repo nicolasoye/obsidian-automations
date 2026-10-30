@@ -134,6 +134,22 @@ async function collectNotes(ctx) {
   return notes;
 }
 
+function previewWithoutCodeSections(markdown) {
+  const visible = [];
+  let fence = null;
+  for (const line of markdown.split(/\r?\n/)) {
+    const marker = line.match(/^ {0,3}(`{3,}|~{3,})/);
+    if (!fence) {
+      if (marker) fence = { character: marker[1][0], length: marker[1].length };
+      else visible.push(line);
+      continue;
+    }
+    const closing = line.match(/^ {0,3}(`+|~+)\s*$/);
+    if (closing && closing[1][0] === fence.character && closing[1].length >= fence.length) fence = null;
+  }
+  return visible.join("\n");
+}
+
 async function existingTopics(ctx, domain) {
   const topicsPath = domain.topicsFolder;
   const folder = folderAt(ctx, topicsPath);
@@ -163,7 +179,9 @@ async function existingTopics(ctx, domain) {
 
 async function chooseNoteRoute(ctx, note, index, total) {
   const { FuzzySuggestModal } = ctx.tp.obsidian;
-  const previewText = note.content.length > 3000 ? `${note.content.slice(0, 3000)}\n…` : note.content;
+  const previewContent = previewWithoutCodeSections(note.content);
+  const previewText = previewContent.length > 3000 ? `${previewContent.slice(0, 3000)}\n…` : previewContent;
+  const noteHeading = `${note.file.basename}\n${note.file.path}`;
   const options = [
     { label: "1. Work", value: "work" },
     { label: "2. Personal", value: "personal" },
@@ -183,7 +201,7 @@ async function chooseNoteRoute(ctx, note, index, total) {
       onOpen() {
         super.onOpen();
         const preview = this.modalEl.createDiv();
-        preview.setText(`${index + 1}/${total} note\n${note.file.path}\n\n${previewText}`);
+        preview.setText(`${noteHeading}\n\n${previewText}`);
         preview.style.whiteSpace = "pre-wrap";
         preview.style.overflowWrap = "anywhere";
         preview.style.maxHeight = "45vh";
